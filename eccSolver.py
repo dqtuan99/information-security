@@ -10,10 +10,14 @@ from isPrime import isPrime
 from primeFactorization import primeFactorization
 from modularInverse import modularInverse
 
-def calculateE(p, a, b):
-    assert(isPrime(p))
+def isEllipticCurve(p, a, b):
     if (4 * a**3 + 27 * b**2) % p == 0:
         return False
+    return True
+
+def calculateE(p, a, b):
+    assert(isPrime(p))
+    assert(isEllipticCurve(p, a, b))
     
     Qp = []
     for x in range(1, (p-1)//2 + 1):
@@ -72,7 +76,7 @@ def bits(P):
         P >>= 1
 
 def doubleAndAdd(n, P, p, a):
-    if h == 1:
+    if n == 1:
         return P
     result = 0
     addend = P
@@ -91,7 +95,7 @@ def findGenerator(Ep, p, a):
     N = len(Ep) + 1
     if isPrime(N):
         return Ep[random.randint(0, len(Ep)-1)]
-    n = primeFactorization(N)[-1]
+    n = primeFactorization(N)[0]
     h = N//n
     G = 'temp'    
     visited = [0] * len(Ep)
@@ -113,13 +117,64 @@ def findGenerator(Ep, p, a):
         return P
     else:
         return 'error 404 generator not found :<'
+        
+def findGenerator2(Ep, p, a):
+    N = len(Ep) + 1
+    n = 0
+    index = 0
+    while n != N:
+        if index >= len(Ep):
+            break
+        G = Ep[index]
+        kG = doublingPoint(G, p, a)
+        count = 2
+        for k in range(3, N+1):
+            kG = addingPoints(kG, G, p)
+            count += 1
+            if kG == 0:
+                break
+        if count > n:
+            n = count
+            print(n)
+        index += 1
     
-
+    if index >= len(Ep):
+        return "toang"
+    
+    return G               
+    
+    
+print('\n====================================================================')
+print('Bai 1:\n')
 a, b, p = -1, 188, 751
 G = (0, 376)
 Ep = calculateE(p, a, b)
 print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
 print(Ep)
+print('kG =')
+for k in range(1, 770):
+    print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
+print('====================================================================\n')
+
+print('\n====================================================================')
+print('Bai 2:\n')
+ngaysinh = 10
+thangsinh = 4
+a, b, p = ngaysinh+20, thangsinh+20, 751
+while not isEllipticCurve(p, a, b):
+    a += 1
+Ep = calculateE(p, a, b)
+print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
+print(Ep)
+G = findGenerator2(Ep, p, a)
+print(f'Phan tu sinh G cua E_{p:d}({a:d}, {b:d}) la:')
+print(G)
+print('kG =')
+for k in range(1, 770):
+    print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
+print('====================================================================\n')
+
+
 
 
 
