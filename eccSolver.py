@@ -170,7 +170,7 @@ G = findGenerator2(Ep, p, a)
 print(f'Phan tu sinh G cua E_{p:d}({a:d}, {b:d}) la:')
 print(G)
 print('kG =')
-for k in range(1, 770):
+for k in range(1, len(Ep)+2):
     print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
 print('====================================================================\n')
 
