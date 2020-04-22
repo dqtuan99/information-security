@@ -48,7 +48,8 @@ def elGamalSolver(p_digits, a_digits, k_digits, text):
     print(f'p = {p:d}\nalpha = {alpha:d}\na = {a:d}\n')
     print(f'beta = alpha^a mod p = {alpha:d}^{a:d} mod {p:d} = {beta:d}\n')
     print(f'=> public key: ({p:d}, {alpha:d}, {beta:d})\nprivate key: {a:d}\n')
-    print(f'x = {x:d}')
+    print(f'x = {text:s}')
+    print(f'= {x:d}')
     print(f'k = {k:d}\n')
     print('Encrypt:\n')
     print('e_k (x, k)')
@@ -65,6 +66,6 @@ def elGamalSolver(p_digits, a_digits, k_digits, text):
     print('===================================================================\n')
     
 
-elGamalSolver(20, 10, 12, 'DoQuangTuan')
-elGamalSolver(50, 30, 34, 'RosesAreRedVioletsAreBlue')
-elGamalSolver(100, 60, 64, 'HoiDongBaoCaNuocTatCaMoiNguoiSinhRaDeuCoQuyenBinhDang')
+elGamalSolver(20, 10, 12, 'VuManhDan')
+elGamalSolver(50, 30, 34, 'SongBatDauTuGio')
+elGamalSolver(100, 60, 64, 'ToanDanDoanKetChongDich')
