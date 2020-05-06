@@ -5,6 +5,7 @@ Created on Tue May  5 22:47:19 2020
 @author: Do Quang Tuan
 '''
 
+import numpy as np
 from eccAlgorithm import *
 from util.digitizeString import digitizeString
 from util.generatePrime import generatePrime
@@ -103,6 +104,11 @@ P_M = doubleAndAdd(digitizeString(hotensv)%p, G, p, a)
 
 print('Bai 3b:')
 eccSolver(p, a, b, G, n_B, k, P_M)
+# =============================================================================
+
+# Bai 4
+# =============================================================================
+
 # =============================================================================
 
 
