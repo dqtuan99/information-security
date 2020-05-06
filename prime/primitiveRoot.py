@@ -5,8 +5,8 @@ Created on Sat Apr 11 01:04:34 2020
 @author: Do Quang Tuan
 """
 
-from primeFactorization import primeFactorization
-from isPrime import isPrime
+from prime.primeFactorization import primeFactorization
+from prime.isPrime import isPrime
 
 def isPrimitiveRoot(g, n):
     assert(isPrime(n))

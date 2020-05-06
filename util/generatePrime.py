@@ -5,7 +5,7 @@ Created on Fri Apr  3 12:01:06 2020
 @author: Do Quang Tuan
 """
 import random
-from isPrime import isPrime
+from prime.isPrime import isPrime
 #from modular_exponentiation import modular_exponentiation #co ham pow roi k can nua
 
 def generatePrime(digits, return_size=1):

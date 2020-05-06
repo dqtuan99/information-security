@@ -6,9 +6,9 @@ Created on Wed Apr 22 18:01:06 2020
 """
 
 import random
-from isPrime import isPrime
-from primeFactorization import primeFactorization
-from modularInverse import modularInverse
+from prime.isPrime import isPrime
+from prime.primeFactorization import primeFactorization
+from modular.modularInverse import modularInverse
 
 def isEllipticCurve(p, a, b):
     if (4 * a**3 + 27 * b**2) % p == 0:
@@ -144,35 +144,42 @@ def findGenerator2(Ep, p, a):
     return G               
     
     
-print('\n====================================================================')
-print('Bai 1:\n')
-a, b, p = -1, 188, 751
-G = (0, 376)
-Ep = calculateE(p, a, b)
-print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
-print(Ep)
-print('kG =')
-for k in range(1, 770):
-    print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
-print('====================================================================\n')
+# =============================================================================
+# print('\n====================================================================')
+# print('Bai 1:\n')
+# a, b, p = -1, 188, 751
+# G = (0, 376)
+# Ep = calculateE(p, a, b)
+# print(f'a = {a:d}, b = {b:d}, p = {p:d}')
+# print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
+# print(Ep)
+# print('kG =')
+# for k in range(1, 770):
+#     print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
+# print('====================================================================\n')
+# =============================================================================
 
-print('\n====================================================================')
-print('Bai 2:\n')
-ngaysinh = 10
-thangsinh = 4
-a, b, p = ngaysinh+20, thangsinh+20, 751
-while not isEllipticCurve(p, a, b):
-    a += 1
-Ep = calculateE(p, a, b)
-print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
-print(Ep)
-G = findGenerator2(Ep, p, a)
-print(f'Phan tu sinh G cua E_{p:d}({a:d}, {b:d}) la:')
-print(G)
-print('kG =')
-for k in range(1, len(Ep)+2):
-    print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
-print('====================================================================\n')
+# =============================================================================
+# print('\n====================================================================')
+# print('Bai 2:\n')
+# ngaysinh = 14
+# thangsinh = 9
+# a, b, p = ngaysinh+20, thangsinh+20, 751
+# while not isEllipticCurve(p, a, b):
+#     a += 1
+# print(f'a = {a:d}, b = {b:d}, p = {p:d}')
+# Ep = calculateE(p, a, b)
+# print(f'Ep(a, b) = E_{p:d}({a:d}, {b:d}) =')
+# print(Ep)
+# print(f'So phan tu của E_{p:d}({a:d}, {b:d}) la: {len(Ep)+1:d}')
+# G = findGenerator2(Ep, p, a)
+# print(f'Phan tu sinh G cua E_{p:d}({a:d}, {b:d}) la:')
+# print(G)
+# print('kG =')
+# for k in range(1, len(Ep)+2):
+#     print(f'k = {k:d}, kG = ' + str(doubleAndAdd(k, G, p, a)))
+# print('====================================================================\n')
+# =============================================================================
 
 
 

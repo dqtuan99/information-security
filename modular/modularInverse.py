@@ -4,8 +4,8 @@ Created on Fri Apr  3 22:47:55 2020
 
 @author: Do Quang Tuan
 """
-from extendedGCD import extendedGCD
-from isPrime import isPrime
+from modular.extendedGCD import extendedGCD
+from prime.isPrime import isPrime
 
 def modularInverse(a, n):
     assert(extendedGCD(a, n) == 1)
