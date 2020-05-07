@@ -5,9 +5,9 @@ Created on Mon Apr 13 10:58:09 2020
 @author: Do Quang Tuan
 """
 
-from generatePrime import generatePrime
-from digitizeString import digitizeString
-from modularInverse import modularInverse
+from util.generatePrime import generatePrime
+from util.digitizeString import digitizeString
+from modular.modularInverse import modularInverse
 
 def rsaSolver(pq_digits, e_digits, text):
     p = generatePrime(pq_digits)[0]
@@ -47,9 +47,12 @@ def rsaSolver(pq_digits, e_digits, text):
     print(f'= {m:d}\n= x')
     print('============================================================\n')
 
-rsaSolver(10, 15, 'DoQuangTuan')
-rsaSolver(20, 30, 'PhongChongDichCorona')
-rsaSolver(50, 80, 'HayChungTayPhongChongDichCorona')
+# =============================================================================
+# rsaSolver(10, 15, 'DoQuangTuan')
+# rsaSolver(20, 30, 'PhongChongDichCorona')
+# rsaSolver(50, 80, 'HayChungTayPhongChongDichCorona')
+# =============================================================================
+
 
 
 
