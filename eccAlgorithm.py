@@ -78,6 +78,8 @@ def bits(P):
 def doubleAndAdd(n, P, p, a):
     if n == 1:
         return P
+    elif n == 0 or P == 0:
+        return 0
     result = 0
     addend = P
     
@@ -141,7 +143,20 @@ def findGenerator2(Ep, p, a):
     if index >= len(Ep):
         return "toang"
     
-    return G               
+    return G
+
+def generatekG(G, p, a):
+    kG = []
+    k = 1
+    oneG = G
+    currentG = oneG
+    while G != 0:
+        currentG = addingPoints(currentG, oneG, p)
+        k += 1
+        kG.append(currentG)
+    
+    return kG
+        
     
     
 # =============================================================================

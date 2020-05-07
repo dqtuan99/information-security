@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 '''
 Created on Tue May  5 22:47:19 2020
@@ -10,7 +11,7 @@ from eccAlgorithm import *
 from util.digitizeString import digitizeString
 from util.generatePrime import generatePrime
 
-def eccSolver(p, a, b, G, n_B, k, P_M):
+def ecElgamalSolver(p, a, b, G, n_B, k, P_M):
     assert(isEllipticCurve(p, a, b))
     
     P_B = doubleAndAdd(n_B, G, p, a)
@@ -44,6 +45,11 @@ def eccSolver(p, a, b, G, n_B, k, P_M):
     
     return decoded == P_M
 
+def ecMasseyOmuraSolver(p, a, b, N, M, m_A, m_B):
+    M_1 = doubleAndAdd(m_A, M, p, a)
+    M_2 = doubleAndAdd(m_B, M_1, p, a)
+    
+
 ngaysinh = '10'
 thangsinh = '04'
 hotensv = 'DOQUANGTUAN'
@@ -59,7 +65,7 @@ k = int(ngaysinh + thangsinh) % 769
 P_M = doubleAndAdd(int(ngaysinh)+304, G, p, a)
 
 print('Bai 1:')
-eccSolver(p, a, b, G, n_B, k, P_M)
+ecElgamalSolver(p, a, b, G, n_B, k, P_M)
 # =============================================================================
 
 # Bai 2
@@ -75,7 +81,7 @@ while (k == n_B):
 P_M = doubleAndAdd(digitizeString(hotensv)%p, G, p, a)
 
 print('Bai 2:')
-eccSolver(p, a, b, G, n_B, k, P_M)
+ecElgamalSolver(p, a, b, G, n_B, k, P_M)
 # =============================================================================
 
 # Bai 3a
@@ -89,7 +95,7 @@ k = 97742
 P_M = (3683630035316666441, 5525445052974999660)
 
 print('Bai 3a:')
-eccSolver(p, a, b, G, n_B, k, P_M)
+ecElgamalSolver(p, a, b, G, n_B, k, P_M)
 # =============================================================================
 
 # Bai 3b
@@ -103,10 +109,21 @@ k = 97742
 P_M = doubleAndAdd(digitizeString(hotensv)%p, G, p, a)
 
 print('Bai 3b:')
-eccSolver(p, a, b, G, n_B, k, P_M)
+ecElgamalSolver(p, a, b, G, n_B, k, P_M)
 # =============================================================================
 
 # Bai 4
+# =============================================================================
+# =============================================================================
+# a = 1
+# b = 1
+# p = 14734520141266665763
+# N = len(calculateE(p, a, b))
+# G = (72, 611)
+# m_A = generatePrime(int(np.ceil(np.ceil(np.log10(p)/2))))[0]
+# m_B = m_A
+# while m_B == m_A:
+#     m_B = generatePrime(int(np.ceil(np.ceil(np.log10(p)/2))))[0]
 # =============================================================================
 
 # =============================================================================
