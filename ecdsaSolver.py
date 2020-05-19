@@ -103,14 +103,19 @@ def testSignature(key, signature, n, message):
     return True
     
 def ecdsaSolver(p, a, b, message, random_d = True):
+    print('\n================================================================')
+    print(f'ECC: p = {p}, a = {a}, b = {b}')
+    print(f'Message = "{message}"')
     Ep = calculateE(p, a, b)
+    print(f'order of Ep = {len(Ep)+1}')
     G, n = findPrimeOrderPoint(Ep, p, a, b)
+    print(f'G = {G} with order of G = n = {n} is prime')
     if random_d:
         d = random.randint(1, n-1)
     else:
-        d = 5   
+        d = 5
     
-    print('\n================================================================')
+    print()
     print('a) Generate ECDSA key:')
     key = generateKey(p, a, b, G, n, d)    
     print('Sender private key d = {key[1]}')
