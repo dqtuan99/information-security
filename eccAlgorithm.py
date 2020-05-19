@@ -9,6 +9,7 @@ import random
 from prime.isPrime import isPrime
 from prime.primeFactorization import primeFactorization
 from modular.modularInverse import modularInverse
+from modular.extendedGCD import extendedGCD
 
 def isEllipticCurve(p, a, b):
     if (4 * a**3 + 27 * b**2) % p == 0:
@@ -37,7 +38,7 @@ def calculateE(p, a, b):
     
     return Ep
 
-def addingPoints(P, Q, p):
+def addingPoints(P, Q, p, a):
     if P == 0 and Q == 0:
         return 0
     if P == 0 or Q == 0:
@@ -45,6 +46,8 @@ def addingPoints(P, Q, p):
             return Q
         if Q == 0:
             return P
+    if P == Q:
+        return doublingPoint(P, p, a)
     
     xP, yP = P
     xQ, yQ = Q
@@ -52,7 +55,12 @@ def addingPoints(P, Q, p):
     if xP == xQ and yQ == (p - yP):
         return 0
     
-    m = ((yP - yQ) * modularInverse((xP - xQ), p)) % p
+    numerator = yP - yQ
+    denominator = xP - xQ
+#    gcd = extendedGCD(numerator, denominator)
+#    numerator /= gcd
+#    denominator /= gcd
+    m = (numerator * modularInverse(denominator, p)) % p
     xR = (m**2 - xP - xQ) % p
     yR = (m * (xP - xR) - yP) % p
     
@@ -62,6 +70,7 @@ def doublingPoint(P, p, a):
     if P == 0:
         return 0
     
+#    print(f'P = {P}')
     xP, yP = P
     
     m = ((3 * xP**2 + a) * modularInverse(2 * yP, p)) % p
@@ -76,6 +85,7 @@ def bits(P):
         P >>= 1
 
 def doubleAndAdd(n, P, p, a):
+    n %= p
     if n == 1:
         return P
     elif n == 0 or P == 0:
@@ -85,7 +95,10 @@ def doubleAndAdd(n, P, p, a):
     
     for bit in bits(n):
         if bit == 1:
-            result = addingPoints(result, addend, p)
+            if result == addend:
+                result = doublingPoint(result, p, a)
+            else:
+                result = addingPoints(result, addend, p, a)
         addend = doublingPoint(addend, p, a)
     
     if result == (0, 0):
@@ -131,7 +144,7 @@ def findGenerator2(Ep, p, a):
         kG = doublingPoint(G, p, a)
         count = 2
         for k in range(3, N+1):
-            kG = addingPoints(kG, G, p)
+            kG = addingPoints(kG, G, p, a)
             count += 1
             if kG == 0:
                 break
@@ -151,7 +164,7 @@ def generatekG(G, p, a):
     oneG = G
     currentG = oneG
     while G != 0:
-        currentG = addingPoints(currentG, oneG, p)
+        currentG = addingPoints(currentG, oneG, p, a)
         k += 1
         kG.append(currentG)
     
