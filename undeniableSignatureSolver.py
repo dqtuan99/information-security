@@ -86,8 +86,10 @@ def Chaum_vanAntverpenSignatureSolver(p_range, alpha_range, message):
 # =============================================================================
     print('================================================================\n')
     
+
+message = 'TUA'
 print('\nBai 4:')
-Chaum_vanAntverpenSignatureSolver((1000, 2000), (400, 500), 'TUA')
+Chaum_vanAntverpenSignatureSolver((1000, 2000), (400, 500), message)
 
 # =============================================================================
 # p_left = 1000
