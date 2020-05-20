@@ -23,7 +23,7 @@ def generateKey(p, a, b, G, n, d):
 def findPointOrder(p, a, b, G):
     kG = doublingPoint(G, p, a)
     k = 2
-    while kG is not 0:
+    while kG != 0:
         k += 1
         kG = addingPoints(kG, G, p, a)
 #        print(f'k = {k}, {k}G = {kG}')
@@ -47,12 +47,12 @@ def generateSignature(p, a, b, G, n, d, message):
     k = random.randint(1, n-1)
     kG = doubleAndAdd(k, G, p, a)
     r = kG[0] % n
-    if r is 0:
+    if r == 0:
         generateSignature(p, a, b, G, n, d, message)
         return None
     hx = digitizeString(message)
     s = (modularInverse(k, n) * (hx + d*r)) % n
-    if s is 0:
+    if s == 0:
         generateSignature(p, a, b, G, n, d, message)
         return None
     
@@ -71,14 +71,14 @@ def testSignature(key, signature, n, message):
     r, s = signature
     
     if r not in range(1, n):
-        print('r = {r} not in [1, n-1 = {n-1}]')
+        print('r = {r} not in [1, n-1={n-1}]')
         return False    
-    print('r = {r} in [1, n-1 = {n-1}]')
+    print(f'r = {r} in [1, n-1={n-1}]')
     
     if s not in range(1, n):
-        print('s = {s} not in [1, n-1 = {n-1}]')
+        print(f's = {s} not in [1, n-1={n-1}]')
         return False    
-    print('s = {s} in [1, n-1 = {n-1}]')
+    print(f's = {s} in [1, n-1={n-1}]')
     
     w = modularInverse(s, n)
     hx = digitizeString(message)
@@ -95,15 +95,15 @@ def testSignature(key, signature, n, message):
     print(f'(x0, y0) = u1G + u2Q = {u1}{G} + {u2}{Q} = ({x0}, {y0}')
     print(f'v = x0 mod n = {x0} mod {n} = {v}')    
     
-    if v is not r:
+    if v != r:
         print(f'v={v} not equal r={r} => False')
         return False
     
     print(f'v = r = {v} => True')
     return True
     
-def ecdsaSolver(p, a, b, message, random_d = True):
-    print('\n================================================================')
+def ecdsaSolver(p, a, b, message, random_d=True):
+    print('================================================================')
     print(f'ECC: p = {p}, a = {a}, b = {b}')
     print(f'Message = "{message}"')
     Ep = calculateE(p, a, b)
@@ -118,8 +118,8 @@ def ecdsaSolver(p, a, b, message, random_d = True):
     print()
     print('a) Generate ECDSA key:')
     key = generateKey(p, a, b, G, n, d)    
-    print('Sender private key d = {key[1]}')
-    print('Sender public key (Ep, G, n, Q) = {key[0]}')
+    print(f'Sender private key d = {key[1]}')
+    print(f'Sender public key (Ep, G, n, Q) = {key[0]}')
     print()
     print('b) Generate ECDSA signature:')
     signature = generateSignature(p, a, b, G, n, d, message)
@@ -127,10 +127,21 @@ def ecdsaSolver(p, a, b, message, random_d = True):
     print()
     print('c) Test signature:')
     isSignature = testSignature(key, signature, n, message)
+    if not isSignature:
+        print()
+        print('Failed, re-run ECDSA Solver again')
+        ecdsaSolver(p, a, b, message, random_d)
+        print()
     print('================================================================\n')
 
-
+print('\nBai 1:')
 ecdsaSolver(43, 5, 7, message='TU', random_d=False)
+
+print('\nBai 2:')
+ecdsaSolver(751, -1, 188, message='TU', random_d=False)
+
+print('\nBai 3:')
+ecdsaSolver(751, -1, 188, message='TU')
 
 # =============================================================================
 # p = 43

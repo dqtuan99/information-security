@@ -33,3 +33,25 @@ def generatePrimeAfter(n):
     
     return n
         
+def generateSophieGermainPrime(left, right, return_size=1):
+    assert(left < right)
+    
+    appended = 0
+    prime_list = []
+    
+    while appended < return_size:
+        p = random.randint(left, right)
+        if isPrime(p):
+            q = (p - 1)//2
+            if isPrime(q):
+                prime_list.append(p)
+                appended += 1
+    
+    return prime_list
+    
+    
+    
+    
+    
+    
+    
