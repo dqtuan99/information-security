@@ -28,21 +28,37 @@ def Chaum_vanAntverpenSignatureSolver(p_range, alpha_range, message):
     x = digitizeString(message)
     y = signature = pow(x, a, p)
     
-    e1 = random.randint((q-1)//2, q-1)
-    e2 = e1
-    while e1 == e2:
-        e2 = random.randint((q-1)//2, q-1)
+    e_range = list(range((q-1)//2, q))
+    e1 = random.choice(e_range)
+    e_range.remove(e1)
+    e2 = random.choice(e_range)
+    e_range.remove(e2)
         
     c = pow(y, e1, p) * pow(beta, e2, p) % p
     
-    d = c**(modularInverse(a, q)) % p
+    d = pow(c, modularInverse(a, q), p)
     
     verify = pow(x, e1, p) * pow(alpha, e2, p) % p
     if verify != d:
         Chaum_vanAntverpenSignatureSolver(p_range, alpha_range, message)
         return None
     
+# =============================================================================
+#     f1 = random.choice(e_range)
+#     e_range.remove(f1)
+#     f2 = random.choice(e_range)
+#     
+#     C = pow(y, f1, p) * pow(beta, f2, p) % p
+#     
+#     D = pow(C, modularInverse(a, q), p)
+#     
+#     temp = pow(x, f1, p) * pow(alpha, f2, p) % p
+#     verify2 = (D != temp)
+# =============================================================================
+    
+    
     print('================================================================')
+    print('a) Confirmation protocol:')
     print('Generate Sophie Germain prime p = 2q + 1:')
     print(f'p = {p} = 2*{q} + 1; {p} is prime and {q} is prime')
     print(f'Since {primitive} is a primitive root of p={p}, hence {primitive}^2 mod {p} = {alpha} is a generator of group of quadratic residues modulo p={p} and of order of q={q}')
@@ -63,6 +79,11 @@ def Chaum_vanAntverpenSignatureSolver(p_range, alpha_range, message):
     print('Alice then check Bob\'s response by verifying that:')
     print(f'x^e1 * alpha^e2 mod p = {x}^{e1} * {alpha}^{e2} mod {p} = {verify} = d')
     print(f'Hence, Alice accepted that the signature y={y} is valid for the message x={x}')
+# =============================================================================
+#     print()
+#     print('b) Disavowal protocol:')
+#     print('In case when d =/= x^e1 * alpha^e2 mod p, Alice has to consider whether y is a forgery or Bob denies his signature. To evaluate this, Alice continues the verification using the following disavowal protocol:')
+# =============================================================================
     print('================================================================\n')
     
 print('\nBai 4:')

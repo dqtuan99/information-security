@@ -88,11 +88,11 @@ def testSignature(key, signature, n, message):
     x0, y0 = addingPoints(doubleAndAdd(u1, G, p, a), doubleAndAdd(u2, Q, p, a), p, a)
     v = x0 % n
     
-    print(f'w = s^(-1) = {s}^(-1) = {w}')
+    print(f'w = s^(-1) mod n = {s}^(-1) mod {n} = {w}')
     print(f'hx = so hoa "{message}" = {hx}')
     print(f'u1 = hx*w mod n = {hx}*{w} mod {n} = {u1}')
     print(f'u2 = r*w mod n = {r}*{w} mod {n} = {u2}')
-    print(f'(x0, y0) = u1G + u2Q = {u1}{G} + {u2}{Q} = ({x0}, {y0}')
+    print(f'(x0, y0) = u1G + u2Q = {u1}{G} + {u2}{Q} = ({x0}, {y0})')
     print(f'v = x0 mod n = {x0} mod {n} = {v}')    
     
     if v != r:
@@ -109,7 +109,7 @@ def ecdsaSolver(p, a, b, message, random_d=True):
     Ep = calculateE(p, a, b)
     print(f'order of Ep = {len(Ep)+1}')
     G, n = findPrimeOrderPoint(Ep, p, a, b)
-    print(f'G = {G} with order of G = n = {n} is prime')
+    print(f'G = {G} with order of G: n = {n} is prime')
     if random_d:
         d = random.randint(1, n-1)
     else:
