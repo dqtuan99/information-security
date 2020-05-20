@@ -134,14 +134,17 @@ def ecdsaSolver(p, a, b, message, random_d=True):
         print()
     print('================================================================\n')
 
+
+message = 'TU'
+
 print('\nBai 1:')
-ecdsaSolver(43, 5, 7, message='TU', random_d=False)
+ecdsaSolver(43, 5, 7, message, random_d=False)
 
 print('\nBai 2:')
-ecdsaSolver(751, -1, 188, message='TU', random_d=False)
+ecdsaSolver(751, -1, 188, message, random_d=False)
 
 print('\nBai 3:')
-ecdsaSolver(751, -1, 188, message='TU')
+ecdsaSolver(751, -1, 188, message)
 
 # =============================================================================
 # p = 43
